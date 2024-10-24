@@ -10,6 +10,7 @@ export const appwriteConfig = {
         storageId: '671796e200153325bbef',
 };
 
+const { endpoint, platform, projectId, databaseId, userCollectionId, videoCollectionId, storageId } = appwriteConfig;
 const client = new Client();
 
 client.setEndpoint(appwriteConfig.endpoint).setProject(appwriteConfig.projectId).setPlatform(appwriteConfig.platform);
@@ -58,6 +59,17 @@ export const getCurrentUser = async () => {
                 if (!currentUser) throw Error;
 
                 return currentUser.documents[0];
+        } catch (error) {
+                console.log(error);
+                throw new Error(error);
+        }
+};
+
+export const getAllPosts = async () => {
+        try {
+                const posts = await databases.listDocuments(databaseId, videoCollectionId);
+
+                return posts.documents;
         } catch (error) {
                 console.log(error);
                 throw new Error(error);
