@@ -5,12 +5,14 @@ import { images } from '../../constants';
 import SearchInput from '../../components/SearchInput.jsx';
 import Trending from '../../components/Trending.jsx';
 import EmptyState from '../../components/EmptyState.jsx';
-import { getAllPosts } from '../../libs/appwrite.js';
+import { getAllPosts, getLatestPosts } from '../../libs/appwrite.js';
 import useAppwrite from '../../libs/useAppwrite.js';
 import VideoCard from '../../components/VideoCard.jsx';
 
 const Home = () => {
         const { data: posts, refetch } = useAppwrite(getAllPosts);
+        const { data: latestPosts } = useAppwrite(getLatestPosts);
+
         const [refreshing, setRefreshing] = useState(false);
         const onRefresh = async () => {
                 setRefreshing(true);
@@ -38,7 +40,7 @@ const Home = () => {
                                                 <SearchInput />
                                                 <View className="w-full flex-1 pt-5 pb-8">
                                                         <Text className="text-gray-100 text-lg font-pregular mb-3">Lates Videos</Text>
-                                                        <Trending posts={[{ id: 1 }] ?? []} />
+                                                        <Trending posts={latestPosts ?? []} />
                                                 </View>
                                         </View>
                                 )}
