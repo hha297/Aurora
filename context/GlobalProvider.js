@@ -16,7 +16,7 @@ const GlobalProvider = ({ children }) => {
                                         setIsLoggedIn(true);
                                         setUser(res);
                                 } else {
-                                        setIsLoggedIn(true);
+                                        setIsLoggedIn(false);
                                         setUser(null);
                                 }
                         })
@@ -31,7 +31,8 @@ const GlobalProvider = ({ children }) => {
                 <GlobalContext.Provider
                         value={{
                                 isLoggedIn,
-                                setIsLoading,
+                                setIsLoggedIn,
+
                                 user,
                                 setUser,
                                 isLoading,

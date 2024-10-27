@@ -8,8 +8,9 @@ import EmptyState from '../../components/EmptyState.jsx';
 import { getAllPosts, getLatestPosts } from '../../libs/appwrite.js';
 import useAppwrite from '../../libs/useAppwrite.js';
 import VideoCard from '../../components/VideoCard.jsx';
-
+import { useGlobalContext } from '../../context/GlobalProvider.js';
 const Home = () => {
+        const { user, setUser, setIsLoggedIn } = useGlobalContext();
         const { data: posts, refetch } = useAppwrite(getAllPosts);
         const { data: latestPosts } = useAppwrite(getLatestPosts);
 
@@ -30,8 +31,8 @@ const Home = () => {
                                         <View className="my-6 px-4 space-y-6">
                                                 <View className="justify-between items-start flex-row mb-6">
                                                         <View>
-                                                                <Text className="font-pmedium text-sm text-gray-200">Welcome Back</Text>
-                                                                <Text className="font-psemibold text-2xl text-gray-200">Hoang Ha</Text>
+                                                                <Text className="font-pmedium text-sm text-gray-200">Welcome Back, </Text>
+                                                                <Text className="font-psemibold text-2xl text-gray-200">{user?.username}</Text>
                                                         </View>
                                                         <View className="mt-2">
                                                                 <Image source={images.logoSmall} className="w-9 h-9" resizeMode="contain" />
